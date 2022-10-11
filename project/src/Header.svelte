@@ -1,11 +1,12 @@
 <script>
   // 깔끔한 해시 모드 경로 변경
   import { link } from "svelte-spa-router";
+  import active from "svelte-spa-router/active";
 </script>
 
 <header>
-  <a use:link href="/">Home</a>
-  <a use:link href="/write">Write</a>
+  <a use:link href="/" use:active={{ path: "/", className: "active" }}>Home</a>
+  <a use:link href="/write" use:active={"/write"}>Write</a>
 </header>
 
 <style>
@@ -29,5 +30,9 @@
     font-family: "Roboto";
     cursor: pointer;
     font-size: 24px;
+    color: #333;
+  }
+  .active {
+    color: rgb(0, 100, 200);
   }
 </style>
