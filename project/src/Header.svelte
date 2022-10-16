@@ -6,7 +6,10 @@
 
 <header>
   <a use:link href="/" use:active={{ path: "/", className: "active" }}>Home</a>
-  <a use:link href="/write" use:active={"/write"}>Write</a>
+  <div>
+    <a use:link href="/todo">TODO</a>
+    <a use:link href="/write">Write</a>
+  </div>
 </header>
 
 <style>
@@ -25,14 +28,17 @@
     padding: 0 18px;
     box-sizing: border-box;
   }
+  div {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
   a {
     text-align: center;
     font-family: "Roboto";
     cursor: pointer;
     font-size: 24px;
     color: #333;
-  }
-  .active {
-    color: rgb(0, 100, 200);
   }
 </style>

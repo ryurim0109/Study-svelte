@@ -10,4 +10,12 @@
 </main>
 
 <style>
+  :global(*) {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+  }
+  :global(ul, li) {
+    list-style: none;
+  }
 </style>
