@@ -5,9 +5,7 @@
   blogStore.subscribe((store) => {
     blogList = store.blogList;
   });
-  const onClickWriteButton = () => {
-    push("/blog/write");
-  };
+
   const onClickPost = (idx) => {
     push(`/blog/${idx}`);
   };
@@ -21,7 +19,7 @@
     <ul>
       {#each blogList as list, idx}
         <li on:click={() => onClickPost(idx)}>
-          {idx + 1}. {list.title}
+          {idx + 1}. 제목 : {list.title}
         </li>
       {/each}
     </ul>
