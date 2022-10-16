@@ -77,7 +77,7 @@
           />
           <p>{todo.text}</p>
         </div>
-        <span on:click={() => onClickDelete(idx)}>삭제</span>
+        <span on:click={() => onClickDelete(idx)}>❌</span>
       </li>
     {/each}
   </ul>
@@ -155,7 +155,7 @@
     align-items: center;
   }
   .todo span {
-    width: 70px;
+    width: 30px;
     height: 30px;
     background-color: #333;
     color: #fff;

@@ -1,8 +1,35 @@
 <script lang="ts">
-  let titleValue = "";
-  let changeValue = (e) => {
-    titleValue = e.target.value;
-    console.log(titleValue);
+  import { blogStore } from "../store/blog";
+  import { push } from "svelte-spa-router";
+
+  let blogList;
+  blogStore.subscribe((store) => {
+    blogList = store.blogList;
+  });
+  let newblogList = {
+    title: "",
+    content: "",
+  };
+
+  const onInput = (e) => {
+    const { value, name } = e.target;
+    newblogList = { ...newblogList, [name]: value };
+  };
+  const onClickCancle = () => {
+    push("/");
+  };
+  const onClickSubmit = () => {
+    if (newblogList.title === "") {
+      return window.alert("제목을 입력해주세요.");
+    }
+    if (newblogList.content === "") {
+      return window.alert("내용을 입력해주세요.");
+    }
+    blogStore.update((store) => ({
+      ...store,
+      blogList: [...store.blogList, newblogList],
+    }));
+    push("/");
   };
 </script>
 
@@ -10,14 +37,21 @@
   <h1>글쓰기</h1>
   <input
     type="text"
+    name="title"
     placeholder="제목을 입력해주세요."
-    bind:value={titleValue}
-    on:change={(e) => changeValue(e)}
+    bind:value={newblogList.title}
+    on:change={onInput}
   />
-  <textarea type="text" placeholder="내용을 입력해주세요." />
+  <textarea
+    type="text"
+    name="content"
+    placeholder="내용을 입력해주세요."
+    bind:value={newblogList.content}
+    on:change={onInput}
+  />
   <div>
-    <button>취소</button>
-    <button class="confirm">작성</button>
+    <button on:click={onClickCancle}>취소</button>
+    <button class="confirm" on:click={onClickSubmit}>작성</button>
   </div>
 </main>
 

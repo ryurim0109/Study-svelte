@@ -1,26 +1,31 @@
 <script lang="ts">
-  let items = [
-    { id: 1, name: "Milk" },
-    { id: 2, name: "Bread" },
-    { id: 3, name: "Eggs" },
-  ];
-
-  const remove = (item) => {
-    items = items.filter((i) => i !== item);
+  import { push } from "svelte-spa-router";
+  import { blogStore } from "../store/blog";
+  let blogList;
+  blogStore.subscribe((store) => {
+    blogList = store.blogList;
+  });
+  const onClickWriteButton = () => {
+    push("/blog/write");
+  };
+  const onClickPost = (idx) => {
+    push(`/blog/${idx}`);
   };
 </script>
 
 <main>
   <h1>Blog</h1>
-
-  <ul>
-    {#each items as item}
-      <li>
-        <span>{item.name}</span>
-        <button on:click={() => remove(item)}>❌</button>
-      </li>
-    {/each}
-  </ul>
+  {#if !blogList.length}
+    <div>텅...</div>
+  {:else}
+    <ul>
+      {#each blogList as list, idx}
+        <li on:click={() => onClickPost(idx)}>
+          {idx + 1}. {list.title}
+        </li>
+      {/each}
+    </ul>
+  {/if}
 </main>
 
 <style>
@@ -29,6 +34,7 @@
     height: 100%;
     padding: 0 18px;
     min-height: 1200px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -45,6 +51,7 @@
     flex-direction: column;
     justify-content: space-between;
     box-sizing: border-box;
+    margin-top: 30px;
   }
   li {
     width: 100%;
